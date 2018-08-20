@@ -30,7 +30,7 @@ class OpenWallet extends Component {
 
     _postPrivateKey = () => {
         axios
-        .post('/api/wallet/open-wallet',{
+        .post('https://tokensale-api.herokuapp.com/api/wallet/open-wallet',{
             privateKey: this.state.pvk
         })
         .then(response => {

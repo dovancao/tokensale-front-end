@@ -18,7 +18,7 @@ class NewWallet extends Component {
             isWallet : 0
         })
         axios
-        .post('api/wallet/new-wallet',{
+        .post('https://tokensale-api.herokuapp.com/api/wallet/new-wallet',{
             password : this.state.password
         }).then(response => {
             this.setState({

@@ -49,7 +49,7 @@ class TokenSale extends Component {
     buyToken = () => {
       axios
         .post('https://tokensale-api.herokuapp.com/api/wallet/crowd-sale', {
-
+            web3: web3js
         })
         .then(response => console.log(response))
         .catch(err => console.log(err))
@@ -69,7 +69,7 @@ class TokenSale extends Component {
                       <label style={{fontSize: "15px", fontWeight: "bold"}}
                       >Select ICO Token To Purchase </label>
                     </div>
-                    <div class="dropdown">
+                    <div className="dropdown">
                       <button type="button" 
                               className="btn btn-success dropdown-toggle"
                               data-toggle="dropdown" 
@@ -104,7 +104,7 @@ class TokenSale extends Component {
             <button
               onClick={this.buyToken()} 
               type="button" 
-              class="btn btn-success">
+              className="btn btn-success">
             I Agree And Buy Son Token Now!</button>
         </div>
     </div>

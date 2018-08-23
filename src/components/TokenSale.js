@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Web3 from 'web3';
-import axios from '../axios';
+const crowdsaleABI = require('../Crowdsale');
+let web3 = new Web3();
 
 class TokenSale extends Component {
   state = {
@@ -47,15 +48,15 @@ class TokenSale extends Component {
     }
   
     buyToken = () => {
-      axios
-        .post('https://tokensale-api.herokuapp.com/api/wallet/crowd-sale', {
-            web3: this.state.web3js
-        })
-        .then(response => console.log(response))
-        .catch(err => console.log(err))
+      let web3Instance = this.state.web3js;
+      web3Instance.eth.defaultAccount = web3.eth.accounts[0];
+      let crowdSaleContract = new web3Instance.eth.Contract(crowdsaleABI);
+      let crowdSale = crowdSaleContract.at('0xb51287b481c437bdd1c7eeb977491052b87fda94');
+      crowdSale.buyTokens(web3Instance.eth.defaultAccount);
     }
       
   render() {
+    console.log(this.state.web3js);
     return (
         <div className="container">
         <div className="row js350">
@@ -102,7 +103,7 @@ class TokenSale extends Component {
                 </div>
             </div>
             <button
-              onClick={this.buyToken()} 
+              onClick={this.buyToken} 
               type="button" 
               className="btn btn-success">
             I Agree And Buy Son Token Now!</button>

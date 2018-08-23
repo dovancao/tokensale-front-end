@@ -16,9 +16,10 @@ class NewWallet extends Component {
     _changeNewWalletPage = () => {
         this.setState ({
             isWallet : 0
-        })
+        });
+
         axios
-        .post('https://tokensale-api.herokuapp.com/api/wallet/new-wallet',{
+        .post('/api/wallet/new-wallet',{
             password : this.state.password
         }).then(response => {
             this.setState({
@@ -26,10 +27,9 @@ class NewWallet extends Component {
                 address: response.data.address,
                 private_key: response.data.private_key,
                 secretSeed: response.data.secretSeed
+            })
         }).catch(err => console.log(err))
-    })
-
-    };
+    }
 
     _onPasswordChange = (password) => {
        this.setState ({

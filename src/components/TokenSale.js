@@ -49,7 +49,7 @@ class TokenSale extends Component {
     buyToken = () => {
       axios
         .post('https://tokensale-api.herokuapp.com/api/wallet/crowd-sale', {
-            web3: web3js
+            web3: this.state.web3js
         })
         .then(response => console.log(response))
         .catch(err => console.log(err))

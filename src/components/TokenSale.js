@@ -48,17 +48,18 @@ class TokenSale extends Component {
     }
   
     buyToken = () => {
-      let web3Instance = this.state.web3js;
-      web3Instance.eth.defaultAccount = web3.eth.accounts[0];
-      let crowdSaleContract = new web3Instance.eth.Contract(crowdsaleABI);
-      let crowdSale = crowdSaleContract.at('0xb51287b481c437bdd1c7eeb977491052b87fda94');
-      crowdSale.buyTokens(web3Instance.eth.defaultAccount);
+      this.state.web3js.eth.defaultAccount = web3.eth.accounts[0];
+      console.log(crowdsaleABI);
+      let crowdSaleContract = new this.state.web3js.eth.Contract(crowdsaleABI.abi, "0xb51287b481c437bdd1c7eeb977491052b87fda94");
+      console.log(crowdsaleABI.abi);
+      // let crowdSale = crowdSaleContract.at('0xb51287b481c437bdd1c7eeb977491052b87fda94');
+      crowdSaleContract.methods.buyTokens(this.state.web3js.eth.defaultAccount);
     }
-      
+  
   render() {
-    console.log(this.state.web3js);
-    return (
-        <div className="container">
+    let body;
+    if (this.state.web3js) {
+      body = (
         <div className="row js350">
             <div className="js450">
                 <h1 className="js550">Fill out the details to participate</h1>
@@ -108,7 +109,38 @@ class TokenSale extends Component {
               className="btn btn-success">
             I Agree And Buy Son Token Now!</button>
         </div>
-    </div>
+      );
+    } else {
+      body = (
+        <div style={{textAlign: 'center'}}>
+        <div className="row js350">
+          <div className="col-6 js451">
+            <div style={{borderBottom: '2px'}}>
+              <h2>OPPS</h2>
+              <p>You'll Need A Place To Store All Of Your Token</p>
+            </div>
+            <div>
+              <img src="https://thumbs.gfycat.com/FlippantInformalAsianwaterbuffalo-size_restricted.gif" alt="animated"/>
+            </div>
+            <div>
+              The perfect place is in a secure wallet like MetaMask. 
+              This will also act as your login to the game (no extra password needed).
+            </div>
+            <div>
+              <a className="btn btn-success active" href="https://addons.mozilla.org/en-US/firefox/addon/ether-metamask/">
+              <button>Get from Firefox Or Google Add-ons Store</button>
+              </a>
+            </div>
+          </div>
+        </div>
+        </div>
+      )
+    }
+
+    return (
+      <div className="container">
+        {body}  
+      </div>
     );
   }
 }
